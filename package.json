@@ -1,0 +1,23 @@
+{
+  "name": "bazellens",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "gen:scope": "ts-node scripts/generateScope.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@types/electron": "^1.4.38",
+    "@types/node": "^24.0.3",
+    "concurrently": "^9.2.0",
+    "electron": "^36.5.0",
+    "electron-builder": "^26.0.12",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  }
+}
