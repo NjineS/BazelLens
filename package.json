@@ -2,26 +2,32 @@
   "name": "bazellens",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "main.js",
   "scripts": {
     "gen:scope": "ts-node scripts/generateScope.ts",
-    "build": "tsc",
+    "build": "tsc && webpack --config webpack.renderer.config.js",
     "start": "npm run build && electron .",
-    "dev": "concurrently \"tsc -w\" \"wait-on build/main/main.js && electron .\""
+    "dev": "concurrently \"tsc -w\" \"webpack serve --config webpack.renderer.config.js\" \"wait-on http://localhost:3000 && electron .\""
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "devDependencies": {
-    "@types/electron": "^1.4.38",
     "@types/node": "^24.0.3",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
     "concurrently": "^9.2.0",
     "electron": "^36.5.0",
     "electron-builder": "^26.0.12",
+    "html-webpack-plugin": "^5.6.3",
+    "ts-loader": "^9.5.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3",
-    "wait-on": "^8.0.3"
+    "wait-on": "^8.0.3",
+    "webpack": "^5.99.9",
+    "webpack-cli": "^6.0.1",
+    "webpack-dev-server": "^5.2.2"
   },
   "dependencies": {
     "react": "^19.1.0",
