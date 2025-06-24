@@ -5,7 +5,9 @@
     "outDir": "build",
     "rootDir": ".",
     "strict": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true
   },
   "include": ["src/**/*", "scripts/**/*"]
 }
