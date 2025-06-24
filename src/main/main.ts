@@ -1,26 +1,38 @@
-import { app, BrowserWindow } from 'electron';
-import { join } from 'path';
+import { app, BrowserWindow } from "electron";
+import * as path from "path";
 
-function createWindow() {
-  const win = new BrowserWindow({
-    width: 1000,
-    height: 700,
+function createMainWindow() {
+  const mainWindow = new BrowserWindow({
+    width: 1200,
+    height: 800,
     webPreferences: {
-      contextIsolation: true,
       nodeIntegration: false,
-      preload: join(__dirname, '../renderer/preload.js')
+      contextIsolation: true,
+      preload: path.join(__dirname, "preload.js") // optional, safe IPC
     }
   });
 
-  win.loadFile('public/index.html');
+  // Load the renderer (React UI) during dev or from file in production
+  if (process.env.NODE_ENV === "development") {
+    mainWindow.loadURL("http://localhost:3000");
+    mainWindow.webContents.openDevTools(); // optional
+  } else {
+    mainWindow.loadFile(path.join(__dirname, "../index.html"));
+  }
 }
 
-app.whenReady().then(createWindow);
+app.whenReady().then(() => {
+  createMainWindow();
 
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') app.quit();
+  app.on("activate", () => {
+    if (BrowserWindow.getAllWindows().length === 0) {
+      createMainWindow();
+    }
+  });
 });
 
-app.on('activate', () => {
-  if (BrowserWindow.getAllWindows().length === 0) createWindow();
+app.on("window-all-closed", () => {
+  if (process.platform !== "darwin") {
+    app.quit();
+  }
 });
